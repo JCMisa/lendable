@@ -6,6 +6,7 @@ export default function Home() {
     <div>
       <Button>Click Me</Button>
       <ThemeToggler />
+      <p>added the webhook in env</p>
     </div>
   );
 }
