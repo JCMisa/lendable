@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Urbanist } from "next/font/google";
 import "./globals.css";
+import { ThemeProvider } from "@/components/custom/ThemeProvider";
+import { Toaster } from "sileo";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { ClerkProvider } from "@clerk/nextjs";
+import { shadcn } from "@clerk/ui/themes";
+import { UserStoreWatcher } from "@/providers/UserStoreWatcher";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const urbanist = Urbanist({
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-urbanist", // This creates a CSS variable
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -24,11 +26,27 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${urbanist.variable} font-sans antialiased `}>
+        <ClerkProvider
+          appearance={{
+            theme: shadcn,
+            variables: { colorPrimary: "#eb003f" },
+          }}
+        >
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <TooltipProvider>
+              <UserStoreWatcher />
+              {children}
+            </TooltipProvider>
+            <Toaster position="top-center" />
+          </ThemeProvider>
+        </ClerkProvider>
       </body>
     </html>
   );

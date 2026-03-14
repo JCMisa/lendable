@@ -1,0 +1,133 @@
+import { SignUp } from "@clerk/nextjs";
+import Image from "next/image";
+import { Zap, BarChart3, TrendingUp } from "lucide-react";
+import Link from "next/link";
+
+export default function SignUpPage() {
+  return (
+    <div className="grid min-h-screen grid-cols-1 lg:grid-cols-2">
+      {/* Auth Side (Form) */}
+      <div className="flex items-center justify-center p-8 bg-background order-2 lg:order-1">
+        <div className="mx-auto flex w-full flex-col items-center justify-center space-y-6 sm:w-[450px]">
+          {/* Mobile Logo Only */}
+          <div className="flex flex-col space-y-2 text-center lg:hidden">
+            <Image
+              src="/logo.svg"
+              alt="Lendable Logo"
+              width={48}
+              height={48}
+              className="mx-auto mb-2"
+            />
+            <h1 className="text-2xl font-semibold tracking-tight">
+              Get Started
+            </h1>
+            <p className="text-sm text-muted-foreground">
+              Create your account to start tracking
+            </p>
+          </div>
+
+          <SignUp
+            appearance={{
+              elements: {
+                formButtonPrimary:
+                  "bg-primary hover:bg-primary/90 text-sm normal-case shadow-sm",
+                card: "shadow-none border-none bg-transparent p-0",
+                // headerTitle: "hidden",
+                // headerSubtitle: "hidden",
+                socialButtonsBlockButton:
+                  "border-input bg-background hover:bg-accent hover:text-accent-foreground",
+                dividerLine: "bg-border",
+                dividerText: "text-muted-foreground text-xs uppercase",
+                footer: "hidden",
+              },
+              options: {
+                logoImageUrl: "/logo.svg",
+                socialButtonsVariant: "blockButton",
+              },
+            }}
+          />
+
+          <p className="text-center text-xs text-muted-foreground">
+            By continuing, you agree to our{" "}
+            <Link href="/terms" className="text-primary hover:underline">
+              Terms of Service
+            </Link>{" "}
+            and{" "}
+            <Link href="/privacy" className="text-primary hover:underline">
+              Privacy Policy
+            </Link>
+            .
+          </p>
+        </div>
+      </div>
+
+      {/* Branding Side (Features) */}
+      <div className="relative hidden flex-col bg-zinc-950 p-10 text-white lg:flex order-1 lg:order-2">
+        {/* Subtle Gradient Background */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,var(--tw-gradient-stops))] from-primary/10 via-transparent to-transparent" />
+
+        {/* Logo Section */}
+        <div className="relative z-20 flex items-center gap-3">
+          <Image
+            src="/logo.svg"
+            alt="Lendable Logo"
+            width={32}
+            height={32}
+            priority
+          />
+          <span className="text-xl font-bold tracking-tight">Lendable</span>
+        </div>
+
+        {/* Feature Cards */}
+        <div className="relative z-20 mt-auto space-y-8">
+          <div className="space-y-6">
+            <div className="group flex items-start gap-4 p-4 rounded-xl transition-colors hover:bg-white/5">
+              <div className="mt-1 rounded-lg bg-primary/10 p-2.5">
+                <Zap className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-semibold">Automated Interest</h4>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Daily, weekly, or monthly interest calculated automatically.
+                  No more manual math.
+                </p>
+              </div>
+            </div>
+
+            <div className="group flex items-start gap-4 p-4 rounded-xl transition-colors hover:bg-white/5">
+              <div className="mt-1 rounded-lg bg-primary/10 p-2.5">
+                <BarChart3 className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-semibold">Visual Progress</h4>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  See exactly how much has been paid and what&apos;s remaining
+                  with clear visual charts.
+                </p>
+              </div>
+            </div>
+
+            <div className="group flex items-start gap-4 p-4 rounded-xl transition-colors hover:bg-white/5">
+              <div className="mt-1 rounded-lg bg-primary/10 p-2.5">
+                <TrendingUp className="h-5 w-5 text-primary" />
+              </div>
+              <div>
+                <h4 className="font-semibold">Personal Expenses</h4>
+                <p className="text-sm text-zinc-400 leading-relaxed">
+                  Manage your personal budget and track where your money goes
+                  alongside your loans.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div className="pt-8 border-t border-white/10">
+            <p className="text-xs text-zinc-500 uppercase tracking-widest font-medium">
+              Trusted by millions of users.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
