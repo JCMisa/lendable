@@ -15,7 +15,7 @@ export const UserStoreWatcher = () => {
     const fetchUser = async () => {
       try {
         setIsLoading(true);
-        const result = await axios.get("/api/users/me");
+        const result = await axios.get("/api/users");
         setUserDetails(result.data);
       } catch (error) {
         console.error("Failed to fetch user:", error);

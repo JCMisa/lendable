@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react"; // Added hooks
 import { Moon, Sun } from "lucide-react";
 import { useTheme } from "next-themes";
 
@@ -13,6 +14,23 @@ import {
 
 export function ThemeToggler() {
   const { setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Use useEffect to set mounted to true only on the client
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setMounted(true);
+  }, []);
+
+  // If not mounted, return a placeholder or a shell of the button
+  // to avoid ID mismatch between Server and Client
+  if (!mounted) {
+    return (
+      <Button variant="outline" size="icon" disabled>
+        <Sun className="h-[1.2rem] w-[1.2rem]" />
+      </Button>
+    );
+  }
 
   return (
     <DropdownMenu>
