@@ -7,6 +7,7 @@ import {
   pgEnum,
   index,
   varchar,
+  boolean,
 } from "drizzle-orm/pg-core";
 import { relations } from "drizzle-orm";
 
@@ -38,6 +39,9 @@ export const users = pgTable("users", {
   // AI Session Management
   aiSessionCount: integer("ai_session_count").default(0).notNull(),
   aiSessionLimit: integer("ai_session_limit").default(3).notNull(),
+
+  // Onboarding status
+  onboardingCompleted: boolean("onboarding_completed").default(false).notNull(),
 
   createdAt: timestamp("created_at").defaultNow(),
   updatedAt: timestamp("updated_at").defaultNow(),
