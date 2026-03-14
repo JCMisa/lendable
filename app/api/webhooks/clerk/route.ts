@@ -56,7 +56,11 @@ export async function POST(req: Request) {
     const { id, email_addresses, image_url, first_name, last_name } = evt.data;
 
     // Clerk users can have multiple emails, we take the primary one
-    const email = email_addresses[0]?.email_address;
+    const email =
+      email_addresses && email_addresses.length > 0
+        ? email_addresses[0].email_address
+        : `no-email-${id}@clerk.user`;
+
     const fullName = `${first_name ?? ""} ${last_name ?? ""}`.trim();
 
     try {
