@@ -24,11 +24,7 @@ export async function GET() {
       return NextResponse.json(null);
     }
 
-    return NextResponse.json(dbUser[0], {
-      headers: {
-        "Cache-Control": "public, s-maxage=60, stale-while-revalidate=30",
-      },
-    });
+    return NextResponse.json(dbUser[0]);
   } catch (error) {
     console.error("GET_USER_ERROR", error);
     return NextResponse.json(
