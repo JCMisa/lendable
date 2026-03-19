@@ -35,3 +35,14 @@ export const showConfetti = () => {
 
   frame();
 };
+
+export const getCurrentDateFormatted = () => {
+  const date = new Date();
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
+  return new Intl.DateTimeFormat("en-US", options).format(date);
+};

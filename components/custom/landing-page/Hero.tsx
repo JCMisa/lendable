@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client";
 
 import { motion } from "framer-motion";
@@ -7,13 +8,20 @@ import Link from "next/link";
 import { useUser } from "@clerk/nextjs";
 import ScatterText from "./magic-ui/ScatterText";
 import { BackgroundBeams } from "./magic-ui/background-beams";
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
   const { user } = useUser();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
     <section className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24">
-      <BackgroundBeams />
+      {mounted && <BackgroundBeams />}
 
       <div className="container relative z-10 mx-auto px-4">
         <div className="flex flex-col items-center text-center">

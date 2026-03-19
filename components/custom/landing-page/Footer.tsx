@@ -1,5 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import CurrentYear from "./CurrentYear";
 
 const FOOTER_LINKS = {
   Product: ["Features", "Pricing", "Dashboard", "AI Advisor"],
@@ -51,7 +52,9 @@ export const Footer = () => {
         <Separator className="my-8" />
 
         <div className="flex flex-col items-center justify-between gap-4 text-sm text-muted-foreground sm:flex-row">
-          <p>© {new Date().getFullYear()} Lendable. All rights reserved.</p>
+          <p>
+            © <CurrentYear />
+          </p>
           <p>Built with 💖 by JCMisa</p>
         </div>
       </div>

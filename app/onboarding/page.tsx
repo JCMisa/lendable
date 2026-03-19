@@ -17,6 +17,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation"; // Added for redirection
 import { completeOnboardingAction } from "@/lib/actions/onboarding";
 import { useClerk } from "@clerk/nextjs";
+import { showConfetti } from "@/lib/utils";
 
 interface Slide {
   id: number;
@@ -108,10 +109,13 @@ const Onboarding = () => {
     try {
       const result = await completeOnboardingAction();
       if (result.success) {
-        // 1. FORCE Clerk to update the local session token immediately
+        // 1. Show Confetti
+        showConfetti();
+
+        // 2. FORCE Clerk to update the local session token immediately
         await clerk?.user?.reload();
 
-        // 2. Now redirect and refresh
+        // 3. Now redirect and refresh
         router.push("/");
         router.refresh();
       } else {
